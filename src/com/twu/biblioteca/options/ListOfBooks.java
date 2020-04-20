@@ -40,13 +40,14 @@ public class ListOfBooks implements Option {
     }
 
     public String showBookList() {
-        StringBuilder bookList = new StringBuilder();
+        StringBuilder bookListBuilder = new StringBuilder();
 
         for (Book book : booksList) {
-            if (!book.isCheckedOut())
-            bookList.append(book.toString()).append("\n");
+            if (!book.isCheckedOut()){
+                bookListBuilder.append(book.toString()).append("\n");
+            }
         }
 
-        return bookList.toString();
+        return bookListBuilder.toString();
     }
 }

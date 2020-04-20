@@ -17,8 +17,6 @@ public class BibliotecaApp {
         while(true){
             System.out.println(menuOptions.showMenu());
 
-            System.out.print("\n");
-
             try{
                 menuOptions.choseOption(in.nextLine());
             } catch (InvalidOptionException ex) {

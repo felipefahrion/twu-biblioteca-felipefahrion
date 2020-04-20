@@ -18,16 +18,8 @@ public class MenuOptionsTest {
 
     @Test
     public void showMenuTest(){
-        String stringTest = "List of books";
-        assertThat(menu.listOfBooks.showOptionName(), is(equalTo(stringTest)));
+        assertThat(menu.showMenu(), instanceOf(String.class));
     }
-
-//    @Test
-//    public void choseOptionTest() throws InvalidOptionException {
-//        String optionChoose = "1";
-//        String bookString = "Title: The Godfather | Author: Francis Ford Coppola | Released Year: 1972";
-//        assertThat(menu.choseOption(optionChoose), containsString(bookString));
-//    }
 
     @Test(expected = InvalidOptionException.class)
     public void choseInvalidOptionTest() throws InvalidOptionException {

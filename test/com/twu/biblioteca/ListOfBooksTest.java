@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
 
 public class ListOfBooksTest {
@@ -19,7 +20,8 @@ public class ListOfBooksTest {
 
     @Test
     public void showOptionNameTest(){
-        assertThat(listOfBooksOption.showOptionName(), is(instanceOf(String.class)));
+        String listOfBooksString = "1 - List of books";
+        assertThat(listOfBooksOption.showOptionName(), containsString(listOfBooksString));
     }
 
     @Test
