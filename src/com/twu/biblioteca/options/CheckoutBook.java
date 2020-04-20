@@ -6,6 +6,11 @@ public class CheckoutBook implements Option {
 
     @Override
     public String showOptionName() {
-        return "2 - Checkout a book";
+        return "Checkout a book";
     }
+
+    @Override
+    public void call() {
+    }
+
 }

@@ -1,7 +1,11 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.exceptions.InvalidOptionException;
+import com.twu.biblioteca.interfaces.Option;
+import com.twu.biblioteca.options.CheckoutBook;
+import com.twu.biblioteca.options.ListOfBooks;
 
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -10,7 +14,11 @@ public class BibliotecaApp {
         WelcomeMessage welcomeMessage = new WelcomeMessage();
         System.out.println(welcomeMessage.initilize() + "\n");
 
-        MenuOptions menuOptions = new MenuOptions();
+        LinkedHashMap<String, Option> options = new LinkedHashMap<String, Option>();
+        options.put("1", new ListOfBooks());
+        options.put("2", new CheckoutBook());
+
+        Menu menuOptions = new Menu(options);
 
         Scanner in = new Scanner(System.in);
 
@@ -18,7 +26,7 @@ public class BibliotecaApp {
             System.out.println(menuOptions.showMenu());
 
             try{
-                menuOptions.choseOption(in.nextLine());
+                menuOptions.chooseOption(in.nextLine());
             } catch (InvalidOptionException ex) {
                 System.out.println(ex.getMessage());
             }

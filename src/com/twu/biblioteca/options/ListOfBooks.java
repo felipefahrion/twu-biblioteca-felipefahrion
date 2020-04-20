@@ -36,10 +36,15 @@ public class ListOfBooks implements Option {
 
     @Override
     public String showOptionName() {
-        return "1 - List of books";
+        return "List of books";
     }
 
-    public String showBookList() {
+    @Override
+    public void call() {
+        System.out.println(showBookList());
+    }
+
+    private String showBookList() {
         StringBuilder bookListBuilder = new StringBuilder();
 
         for (Book book : booksList) {
