@@ -8,19 +8,24 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         WelcomeMessage welcomeMessage = new WelcomeMessage();
-        System.out.println(welcomeMessage.initilize());
-
-        System.out.print("\n");
+        System.out.println(welcomeMessage.initilize() + "\n");
 
         MenuOptions menuOptions = new MenuOptions();
-        System.out.println(menuOptions.showMenu());
 
-        System.out.print("\n");
+        Scanner in = new Scanner(System.in);
 
-        try{
-            menuOptions.choseOption("X");
-        } catch (InvalidOptionException ex) {
-            System.out.println(ex.getMessage());
+        while(true){
+            System.out.println(menuOptions.showMenu());
+
+            System.out.print("\n");
+
+            try{
+                menuOptions.choseOption(in.nextLine());
+            } catch (InvalidOptionException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+            System.out.print("\n");
         }
     }
 }

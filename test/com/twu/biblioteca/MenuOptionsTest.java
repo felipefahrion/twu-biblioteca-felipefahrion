@@ -1,8 +1,6 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.exceptions.InvalidOptionException;
-import com.twu.biblioteca.interfaces.Option;
-import com.twu.biblioteca.options.ListOfBooks;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,11 +22,12 @@ public class MenuOptionsTest {
         assertThat(menu.listOfBooks.showOptionName(), is(equalTo(stringTest)));
     }
 
-    @Test
-    public void choseOptionTest() throws InvalidOptionException {
-        String optionChoose = "1";
-        assertThat(menu.choseOption(optionChoose), is(instanceOf((Option.class))));
-    }
+//    @Test
+//    public void choseOptionTest() throws InvalidOptionException {
+//        String optionChoose = "1";
+//        String bookString = "Title: The Godfather | Author: Francis Ford Coppola | Released Year: 1972";
+//        assertThat(menu.choseOption(optionChoose), containsString(bookString));
+//    }
 
     @Test(expected = InvalidOptionException.class)
     public void choseInvalidOptionTest() throws InvalidOptionException {

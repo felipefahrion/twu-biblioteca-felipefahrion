@@ -11,10 +11,9 @@ public class MenuOptions {
         return listOfBooks.showOptionName();
     }
 
-
-    public Option choseOption(String optionChoose) throws InvalidOptionException{
+    public void choseOption(String optionChoose) throws InvalidOptionException{
         if (optionChoose.equals("1")) {
-            return new ListOfBooks();
+            System.out.println(new ListOfBooks().showBookList());
         } else {
             throw new InvalidOptionException("Please select a valid option!");
         }
