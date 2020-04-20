@@ -4,11 +4,24 @@ public class Book {
     private String title;
     private String author;
     private String releasedYear;
+    private boolean checkout;
 
     public Book(String title, String author, String releasedYear) {
         this.title = title;
         this.author = author;
         this.releasedYear = releasedYear;
+        this.checkout = false;
+    }
+
+    public Book(String title, String author, String releasedYear, boolean checkout) {
+        this.title = title;
+        this.author = author;
+        this.releasedYear = releasedYear;
+        this.checkout = checkout;
+    }
+
+    public boolean isCheckedOut() {
+        return checkout;
     }
 
     @Override
