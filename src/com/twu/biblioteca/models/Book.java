@@ -20,6 +20,14 @@ public class Book {
         this.checkout = checkout;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setCheckout(boolean checkout) {
+        this.checkout = checkout;
+    }
+
     public boolean isCheckedOut() {
         return checkout;
     }

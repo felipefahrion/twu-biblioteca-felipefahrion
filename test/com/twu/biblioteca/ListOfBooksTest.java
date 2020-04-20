@@ -2,38 +2,61 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.options.ListOfBooks;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
 
 public class ListOfBooksTest {
 
     ListOfBooks listOfBooksOption;
+    List<Book> books;
+
+    private PrintStream sysOut;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Before
-    public void setUp(){
-        listOfBooksOption = new ListOfBooks();
+    public void setUpStreams() {
+        sysOut = System.out;
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void revertStreams() {
+        System.setOut(sysOut);
+    }
+
+    @Before
+    public void setUp() {
+        books = new ArrayList<Book>();
+        listOfBooksOption = new ListOfBooks(books);
     }
 
     @Test
-    public void showOptionNameTest(){
-        String listOfBooksString = "1 - List of books";
-        assertThat(listOfBooksOption.showOptionName(), containsString(listOfBooksString));
+    public void showOptionNameTest() {
+        String listOfBooksString = "List of books";
+        assertThat(listOfBooksOption.showOptionName(), is(listOfBooksString));
     }
 
-//    @Test
-//    public void showListOfBooksTest(){
-//        String bookString = "Title: The Godfather | Author: Francis Ford Coppola | Released Year: 1972";
-//        assertThat(listOfBooksOption.call(), containsString(bookString));
-//    }
-//
-//    @Test
-//    public void showListOfBooksWithCheckedOutTest(){
-//        String bookString = "Title: The Empire Strikes Back | Author: Irvin Kershner | Released Year: 1980";
-//        assertThat(listOfBooksOption.call(), not(containsString(bookString)));
-//    }
+    @Test
+    public void showBookListOnCallTest() {
+        String listOfBooksString = "Title: The Godfather | Author: Francis Ford Coppola | Released Year: 1972\n\n";
+        books.add(new Book("The Godfather", "Francis Ford Coppola", "1972"));
+        listOfBooksOption.call();
+        assertThat(outContent.toString(), is(listOfBooksString));
+    }
 
+    @Test
+    public void showEmptyBookListOnCallTest() {
+        String listOfBooksString = "\n";
+        listOfBooksOption.call();
+        assertThat(outContent.toString(), is(listOfBooksString));
+    }
 }

@@ -10,13 +10,13 @@ import java.util.LinkedHashMap;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class MenuTest {
 
     Menu menu;
     LinkedHashMap<String, Option> options = new LinkedHashMap<String, Option>();
+    ListOfBooks listOfBooks = mock(ListOfBooks.class);
 
     @Before
     public void setUp() {
@@ -25,8 +25,6 @@ public class MenuTest {
 
     @Test
     public void chooseOptionAndExecuteTest() throws InvalidOptionException {
-        ListOfBooks listOfBooks = mock(ListOfBooks.class);
-
         options.put("1", listOfBooks);
         menu.chooseOption("1");
         verify(listOfBooks).call();
@@ -35,7 +33,9 @@ public class MenuTest {
     @Test
     public void showFakeOptionMenuTest() {
         String optionFake = "99 - List of books\n";
-        options.put("99", new ListOfBooks());
+        options.put("99", listOfBooks);
+        when(listOfBooks.showOptionName()).thenReturn("List of books");
+
         assertThat(menu.showMenu(), is(optionFake));
     }
 
