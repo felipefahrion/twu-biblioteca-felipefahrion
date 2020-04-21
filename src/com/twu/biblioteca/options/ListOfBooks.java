@@ -1,11 +1,8 @@
 package com.twu.biblioteca.options;
 
-
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.interfaces.Option;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ListOfBooks implements Option {

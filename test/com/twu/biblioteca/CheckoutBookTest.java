@@ -69,7 +69,32 @@ public class CheckoutBookTest {
 
         checkoutBook.call();
         assertThat(outContent.toString(), containsString("Book not found"));
+    }
 
+    @Test
+    public void successMessageOnCheckoutABookTest() {
+        Book book = new Book("The Godfather", "Francis Ford Coppola", "1972");
+        books.add(book);
+
+        String input = "The Godfather";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        checkoutBook.call();
+        assertThat(outContent.toString(), containsString("Thank you! Enjoy the book"));
+    }
+
+    @Test
+    public void failureMessageOnCheckoutABookTest() {
+        Book book = new Book("The Godfather", "Francis Ford Coppola", "1972", true);
+        books.add(book);
+
+        String input = "The Godfather";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        checkoutBook.call();
+        assertThat(outContent.toString(), containsString("Sorry, that book is not available"));
     }
 
 //    @Test
