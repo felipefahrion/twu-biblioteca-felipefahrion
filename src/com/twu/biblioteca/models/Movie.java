@@ -23,12 +23,20 @@ public class Movie {
         this.checkout = checkout;
     }
 
+    public boolean isCheckedOut() {
+        return checkout;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setCheckout(boolean checkout) {
+        this.checkout = checkout;
+    }
+
     @Override
     public String toString() {
         return "Title: " + title + " | Director: " + director + " | Released Year: " + releasedYear + " | Rating: " + rating;
-    }
-
-    public boolean isCheckedOut() {
-        return checkout;
     }
 }

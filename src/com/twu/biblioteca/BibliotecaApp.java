@@ -4,10 +4,7 @@ import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.interfaces.Option;
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.models.Movie;
-import com.twu.biblioteca.options.CheckoutBook;
-import com.twu.biblioteca.options.ListOfBooks;
-import com.twu.biblioteca.options.ListOfMovies;
-import com.twu.biblioteca.options.ReturnBook;
+import com.twu.biblioteca.options.*;
 
 import java.util.*;
 
@@ -59,6 +56,7 @@ public class BibliotecaApp {
                 new Book("Casino Royale", "Martin Campbell", "2006"))
         );
     }
+
     private static List<Movie> movieList() {
         return new ArrayList<Movie>(Arrays.asList(
                 new Movie("The Godfather", "Francis Ford Coppola", "1972", 9),
@@ -92,6 +90,7 @@ public class BibliotecaApp {
         options.put("2", new CheckoutBook(books));
         options.put("3", new ReturnBook(books));
         options.put("4", new ListOfMovies(movies));
+        options.put("5", new CheckoutMovie(movies));
 
         return options;
     }
