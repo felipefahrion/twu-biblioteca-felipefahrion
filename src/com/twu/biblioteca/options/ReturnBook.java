@@ -7,17 +7,17 @@ import com.twu.biblioteca.models.Book;
 import java.util.List;
 import java.util.Scanner;
 
-public class CheckoutBook implements Option {
+public class ReturnBook implements Option {
 
     private List<Book> books;
 
-    public CheckoutBook(List<Book> books) {
+    public ReturnBook(List<Book> books) {
         this.books = books;
     }
 
     @Override
     public String showOptionName() {
-        return "Checkout a book";
+        return "Return a book";
     }
 
     @Override
@@ -27,11 +27,11 @@ public class CheckoutBook implements Option {
         try {
             Book book = findBookByTitle(new Scanner(System.in).nextLine());
 
-            if (!book.isCheckedOut()) {
-                book.setCheckout(true);
-                System.out.println("Thank you! Enjoy the book");
+            if (book.isCheckedOut()) {
+                book.setCheckout(false);
+                System.out.println("Thank you for returning the book");
             } else {
-                System.out.println("Sorry, that book is not available");
+                System.out.println("That is not a valid book to return");
             }
         } catch (BookNotFoundException e) {
             System.out.println(e.getMessage());
@@ -44,5 +44,4 @@ public class CheckoutBook implements Option {
                 .findFirst()
                 .orElseThrow(() -> new BookNotFoundException("Book not found"));
     }
-
 }

@@ -5,6 +5,7 @@ import com.twu.biblioteca.interfaces.Option;
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.options.CheckoutBook;
 import com.twu.biblioteca.options.ListOfBooks;
+import com.twu.biblioteca.options.ReturnBook;
 
 import java.util.*;
 
@@ -14,14 +15,7 @@ public class BibliotecaApp {
         WelcomeMessage welcomeMessage = new WelcomeMessage();
         System.out.println(welcomeMessage.initilize() + "\n");
 
-        LinkedHashMap<String, Option> options = new LinkedHashMap<String, Option>();
-
-        List<Book> books = bookList();
-
-        options.put("1", new ListOfBooks(books));
-        options.put("2", new CheckoutBook(books));
-
-        Menu menuOptions = new Menu(options);
+        Menu menuOptions = new Menu(options(bookList()));
 
         Scanner in = new Scanner(System.in);
 
@@ -62,5 +56,15 @@ public class BibliotecaApp {
                 new Book("Skyfall", "Sam Mendes", "2012", true),
                 new Book("Casino Royale", "Martin Campbell", "2006"))
         );
+    }
+
+    private static LinkedHashMap<String, Option> options(List<Book> books){
+        LinkedHashMap<String, Option> options = new LinkedHashMap<String, Option>();
+
+        options.put("1", new ListOfBooks(books));
+        options.put("2", new CheckoutBook(books));
+        options.put("3", new ReturnBook(books));
+
+        return options;
     }
 }

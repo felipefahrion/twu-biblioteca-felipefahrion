@@ -1,7 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.Book;
-import com.twu.biblioteca.options.CheckoutBook;
+import com.twu.biblioteca.options.ReturnBook;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,12 +13,13 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class CheckoutBookTest {
-    CheckoutBook checkoutBook;
+public class ReturnBookTest {
 
+    private ReturnBook returnBook;
     List<Book> books = new ArrayList<Book>();
 
     private PrintStream sysOut;
@@ -37,53 +38,17 @@ public class CheckoutBookTest {
 
     @Before
     public void setUp() {
-        checkoutBook = new CheckoutBook(books);
+        returnBook = new ReturnBook(books);
     }
 
     @Test
     public void showOptionNameTest() {
-        String checkoutOptionString = "Checkout a book";
-        assertThat(checkoutBook.showOptionName(), is(checkoutOptionString));
+        String returnABookString = "Return a book";
+        assertThat(returnBook.showOptionName(), is(returnABookString));
     }
 
     @Test
-    public void checkoutBookOnCallTest() {
-        Book book = new Book("The Godfather", "Francis Ford Coppola", "1972");
-        books.add(book);
-
-        String input = "The Godfather";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        checkoutBook.call();
-        assertThat(book.isCheckedOut(), is(true));
-    }
-
-    @Test
-    public void checkoutInvalidBookOnCallTest() {
-        String input = "The Godfather";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        checkoutBook.call();
-        assertThat(outContent.toString(), containsString("Book not found"));
-    }
-
-    @Test
-    public void successMessageOnCheckoutABookTest() {
-        Book book = new Book("The Godfather", "Francis Ford Coppola", "1972");
-        books.add(book);
-
-        String input = "The Godfather";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        checkoutBook.call();
-        assertThat(outContent.toString(), containsString("Thank you! Enjoy the book"));
-    }
-
-    @Test
-    public void failureMessageOnCheckoutABookTest() {
+    public void returnBookOnCallTest() {
         Book book = new Book("The Godfather", "Francis Ford Coppola", "1972", true);
         books.add(book);
 
@@ -91,7 +56,43 @@ public class CheckoutBookTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        checkoutBook.call();
-        assertThat(outContent.toString(), containsString("Sorry, that book is not available"));
+        returnBook.call();
+        assertThat(book.isCheckedOut(), is(false));
+    }
+
+    @Test
+    public void returnInvalidBookOnCallTest() {
+        String input = "The Godfather";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        returnBook.call();
+        assertThat(outContent.toString(), containsString("Book not found"));
+    }
+
+    @Test
+    public void successMessageOnReturnABookTest() {
+        Book book = new Book("The Godfather", "Francis Ford Coppola", "1972", true);
+        books.add(book);
+
+        String input = "The Godfather";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        returnBook.call();
+        assertThat(outContent.toString(), containsString("Thank you for returning the book"));
+    }
+
+    @Test
+    public void failureMessageOnReturnABookTest() {
+        Book book = new Book("The Godfather", "Francis Ford Coppola", "1972");
+        books.add(book);
+
+        String input = "The Godfather";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        returnBook.call();
+        assertThat(outContent.toString(), containsString("That is not a valid book to return"));
     }
 }
